@@ -1,0 +1,12 @@
+// Variables
+@import "./styles/variables/colors";
+@import "./styles/variables/sizes";
+
+// Mixins
+@import "./styles/utils/mixins";
+
+// Base styles
+@import "./styles/base/reset";
+
+// Components
+@import "./styles/components/dialog";
