@@ -1,4 +1,4 @@
-export * from './auth.service';
+export * from '../../module/login/services/auth.service';
 export * from './api.service';
 export * from './board.service';
 export * from './spinner.service';

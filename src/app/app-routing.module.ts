@@ -9,12 +9,12 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     loadChildren: () =>
-      import('./dashboard/dashboard.module').then(m => m.DashboardModule),
+      import('./module/dashboard/dashboard.module').then(m => m.DashboardModule),
   },
   {
     path: 'login',
     loadChildren: () =>
-      import('./login/login.module').then(m => m.LoginModule),
+      import('./module/login/login.module').then(m => m.LoginModule),
   },
   {
     path: '**',

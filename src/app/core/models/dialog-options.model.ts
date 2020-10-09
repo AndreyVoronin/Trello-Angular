@@ -1,9 +1,10 @@
 export enum Dialog {
     ConfirmationDialogComponent = 'ConfirmationDialogComponent',
-    CardComponent = 'CardComponent'
+    CardDialogComponent = 'CardDialogComponent'
 }
 
 export interface DialogOptions {
+    data?: any;
     type?: Dialog;
     content?: string;
     confirmText?: string;

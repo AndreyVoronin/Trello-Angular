@@ -1,12 +1,12 @@
 // Variables
-@import "./styles/variables/colors";
-@import "./styles/variables/sizes";
+@import "./assets/styles/variables/colors";
+@import "./assets/styles/variables/sizes";
 
 // Mixins
-@import "./styles/utils/mixins";
+@import "./assets/styles/utils/mixins";
 
 // Base styles
-@import "./styles/base/reset";
+@import "./assets/styles/base/reset";
 
 // Components
-@import "./styles/components/dialog";
+@import "./assets/styles/components/dialog";

@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService, NotificationsService } from '../core/services';
-import { User } from '../core/models';
+import { AuthService, NotificationsService } from '../../../core/services';
+import { User } from '../../../core/models';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +31,7 @@ export class LoginComponent implements OnInit {
       this.router.navigate(['']);
     }
     catch (error) {
-      this.errorToShow = error.message;
-      this.notificationsService.openSnackBar(this.errorToShow, 'close');
+      this.formGroup.setErrors({error: error.message})
     }
   }
 

@@ -9,14 +9,11 @@ import { Dialog, DialogOptions } from '../models';
 })
 export class DialogService {
   private defaultDialogOptions: DialogOptions = {
-    type: Dialog.ConfirmationDialogComponent,
-    content: 'Are you sure?',
-    confirmText: 'Ok',
-    cancelText: 'Cancel'
+    type: Dialog.CardDialogComponent
   };
   private defaultDialogConfig: MatDialogConfig = {
-    height: '300px',
-    width: '300px',
+    height: '50%',
+    width: '50%',
     panelClass: 'custom-dialog'
   };
 
@@ -25,7 +22,7 @@ export class DialogService {
   openDialog(dialogOptions: DialogOptions, dialogConfig?: MatDialogConfig): void {
     const data = {
       ...this.defaultDialogOptions,
-      ...dialogOptions
+      ...dialogOptions.data
     };
     const config = {
       ...this.defaultDialogConfig,
