@@ -17,6 +17,10 @@ const routes: Routes = [
       import('./module/login/login.module').then(m => m.LoginModule),
   },
   {
+    path: 'boards/:boardId',
+    loadChildren: () => import('./module/board/board.module').then(m => m.BoardModule),
+  },
+  {
     path: '**',
     component: PageNotFoundComponent
   },

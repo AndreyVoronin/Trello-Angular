@@ -1,11 +1,16 @@
-<mat-grid-list cols="4" rowHeight="400px">
+<mat-grid-list cols="4" rowHeight="200px">
   <mat-grid-tile *ngFor="let board of boards$ | async; trackBy: trackById">
-    <mat-card class="card" (click)="openBoardDialog(board._id)">
+    <mat-card class="card" (click)="openBoard(board._id)">
       <mat-card-header>
         <mat-card-title>{{ board.title }}</mat-card-title>
-        <span class="card-spacer"></span>
-        <!-- <mat-icon (click)="openDialog(board._id)">close</mat-icon> -->
       </mat-card-header>
+      <button
+        mat-stroked-button
+        color="primary"
+        (click)="deleteBoard($event, board._id)"
+      >
+        Delete board
+      </button>
     </mat-card>
   </mat-grid-tile>
   <mat-grid-tile>

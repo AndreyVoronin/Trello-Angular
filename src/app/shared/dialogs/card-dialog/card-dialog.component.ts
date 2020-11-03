@@ -9,7 +9,7 @@ import { DialogOptions } from '@core/models';
 })
 export class CardDialogComponent implements OnInit {
 
-  board: any;
+  tasks: any;
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: DialogOptions) { }
 
@@ -18,6 +18,6 @@ export class CardDialogComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.board = this.data;
+    this.tasks = this.data;
   }
 }

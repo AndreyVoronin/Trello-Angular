@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Board } from '@core/models';
 import { BoardService, DialogService, NotificationsService } from '@core/services';
 import { trackById } from '@core/utils';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +21,7 @@ export class DashboardComponent implements OnInit {
     private boardService: BoardService,
     private notificationsService: NotificationsService,
     private dialogService: DialogService,
+    private router: Router,
   ) {
   }
 
@@ -45,12 +47,12 @@ export class DashboardComponent implements OnInit {
   //   });
   // }
 
-  async openBoardDialog(boardId: string): Promise<void> {
-    await this.getBoardById(boardId);
-    this.dialogService.openDialog({
-      data: this.board
-    });
-  }
+  // async openBoardDialog(boardId: string): Promise<void> {
+  //   await this.getBoardById(boardId);
+  //   this.dialogService.openDialog({
+  //     data: this.board
+  //   });
+  // }
 
   ngOnInit(): void {    
     this.getBoards();
@@ -61,9 +63,14 @@ export class DashboardComponent implements OnInit {
     this.boardService.sendBoardsRequest();
   }
 
-  private getBoardById(boardId): Promise<void> {
-    return this.boardService.sendBoardRequest(boardId).then(board => {
-      this.board = board;
-    });
+  async deleteBoard(event, boardId: string): Promise<void>{
+    event.stopPropagation();
+    await this.boardService.deleteBoard(boardId);
+    this.getBoards();
+  }
+
+  openBoard(boardId: string): void {
+    if (!boardId) { return; }
+    this.router.navigate([`/boards/${boardId}`]);
   }
 }

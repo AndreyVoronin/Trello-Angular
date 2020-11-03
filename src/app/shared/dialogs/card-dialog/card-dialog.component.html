@@ -1,6 +1,6 @@
-<h1 mat-dialog-title>{{board.title}}</h1>
+<h2>{{tasks.title}}</h2>
 <ul mat-dialog-content>
-  <li *ngFor="let column of board.columns">{{column.title}}</li>  
+  <li *ngFor="let task of tasks.tasks"><mat-card>{{task.task}}</mat-card></li>  
 </ul>
 <div mat-dialog-actions>
   <button mat-button mat-dialog-close (click)="confirm()">{{data.confirmText}}</button>
