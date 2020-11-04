@@ -12,7 +12,7 @@ export class DialogService {
     type: Dialog.CardDialogComponent
   };
   private defaultDialogConfig: MatDialogConfig = {
-    width: '500px',
+    width: '100%',
     panelClass: 'custom-dialog'
   };
 

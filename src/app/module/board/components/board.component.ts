@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BoardService, DialogService } from '@core/services';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnService } from '@core/services/column.service';
 
 @Component({
@@ -12,29 +12,29 @@ import { ColumnService } from '@core/services/column.service';
 export class BoardComponent implements OnInit {
   id: number;
   board: any;
-  columns: [];
-  titleValue = ''; 
+  titleValue = '';
+  selectedColumn;
 
   constructor(
     private activateRoute: ActivatedRoute,
     private boardService: BoardService,
     private columnService: ColumnService,
     private dialogService: DialogService,
+    private router: Router
   ) {
     this.id = activateRoute.snapshot.params['boardId'];
   }
 
   ngOnInit() {
-    this.board = this.getBoardById(this.id);   
+    this.board = this.getBoardById(this.id);
   }
 
-  private async getBoardById(boardId): Promise<void> {
+  async getBoardById(boardId): Promise<void> {
     this.board = await this.boardService.sendBoardRequest(boardId);
-    this.columns = this.board.columns;
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.columns, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.board.columns, event.previousIndex, event.currentIndex);
   }
 
   async deleteColumn(columnId: string): Promise<void> {
@@ -48,9 +48,14 @@ export class BoardComponent implements OnInit {
     this.getBoardById(this.id);
   }
 
-   async openTasksDialog(column): Promise<void> {
+  async openTasksDialog(column): Promise<void> {
     this.dialogService.openDialog({
-      data: column
+      data: column,
     });
+  }
+
+  boardEdit(column) {
+    this.selectedColumn = column;
+    this.selectedColumn.description = this.selectedColumn.description || '';
   }
 }
