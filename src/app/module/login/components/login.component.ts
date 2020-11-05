@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { AuthService, NotificationsService } from '../../../core/services';
+import { NotificationsService } from '../../../core/services';
 import { User } from '../../../core/models';
+import { AuthService } from '../../../core/services';
 
 @Component({
   selector: 'app-login',

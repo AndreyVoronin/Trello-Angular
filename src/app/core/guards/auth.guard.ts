@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { isBoolean } from 'lodash';
 
-import { AuthService } from '../services';
+import { AuthService } from '../../core/services';
 
 @Injectable({
   providedIn: 'root'
