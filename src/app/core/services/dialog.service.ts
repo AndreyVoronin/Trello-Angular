@@ -9,6 +9,7 @@ import { Dialog, DialogOptions } from '../models';
 })
 export class DialogService {
   private defaultDialogOptions: DialogOptions = {
+    confirmText: 'save',
     type: Dialog.CardDialogComponent
   };
   private defaultDialogConfig: MatDialogConfig = {

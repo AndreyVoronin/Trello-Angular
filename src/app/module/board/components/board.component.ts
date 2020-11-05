@@ -55,7 +55,7 @@ export class BoardComponent implements OnInit {
   }
 
   boardEdit(column) {
-    this.selectedColumn = column;
+    this.selectedColumn = {...column};
     this.selectedColumn.description = this.selectedColumn.description || '';
   }
 }
