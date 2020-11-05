@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 
-import { ApiService } from './api.service';
-import { Board } from '../models';
+import { ApiService } from '../../../core/services/api.service';
+import { Board } from '../../../core/models';
 
 @Injectable({
   providedIn: 'root'

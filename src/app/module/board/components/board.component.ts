@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BoardService, DialogService } from '@core/services';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
-import { ColumnService } from '@core/services/column.service';
+import { ColumnService } from '../service/column.service';
 
 @Component({
   selector: 'app-board',
