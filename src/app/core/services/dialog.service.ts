@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 
 import { dialogsMap } from 'src/app/shared/dialogs';
 import { Dialog, DialogOptions } from '../models';
@@ -10,7 +10,7 @@ import { Dialog, DialogOptions } from '../models';
 export class DialogService {
   private defaultDialogOptions: DialogOptions = {
     confirmText: 'save',
-    type: Dialog.CardDialogComponent
+    cancelText: 'cancel'
   };
   private defaultDialogConfig: MatDialogConfig = {
     width: '100%',
@@ -19,7 +19,7 @@ export class DialogService {
 
   constructor(public dialog: MatDialog) { }
 
-  openDialog(dialogOptions: DialogOptions, dialogConfig?: MatDialogConfig): void {
+  openDialog(dialogOptions: DialogOptions, dialogConfig?: MatDialogConfig): MatDialogRef<any> {
     const data = {
       ...this.defaultDialogOptions,
       ...dialogOptions.data
@@ -30,7 +30,7 @@ export class DialogService {
       data
     };
     const dialogComponent = dialogsMap[data.type];
-    const boardId = this.dialog.open(dialogComponent, config);
+    return this.dialog.open(dialogComponent, config);    
   }
 
 }

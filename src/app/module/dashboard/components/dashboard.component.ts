@@ -15,7 +15,6 @@ export class DashboardComponent implements OnInit {
   boards$: Observable<Board[]>;
   trackById = trackById;
   errorToShow: string;
-  public board: any;
 
   constructor(
     private boardService: BoardService,
@@ -40,19 +39,6 @@ export class DashboardComponent implements OnInit {
       this.notificationsService.openSnackBar(this.errorToShow, 'close');
     }
   }
-
-  // openDialog(boardId: string): void {
-  //   this.dialogService.openDialog({
-  //     onConfirm: () => this.handleBoardDelete(boardId)
-  //   });
-  // }
-
-  // async openBoardDialog(boardId: string): Promise<void> {
-  //   await this.getBoardById(boardId);
-  //   this.dialogService.openDialog({
-  //     data: this.board
-  //   });
-  // }
 
   ngOnInit(): void {    
     this.getBoards();

@@ -1,0 +1,8 @@
+<mat-card>
+  <mat-card-title>{{title}}</mat-card-title>
+  <input mat-input name="title" [(ngModel)]="title" [placeholder]="title"/>
+  <mat-card-actions>
+    <button mat-raised-button color="primary" (click)="onNoClick()">{{data.cancelText}}</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="title">{{data.confirmText}}</button>
+  </mat-card-actions>
+</mat-card>

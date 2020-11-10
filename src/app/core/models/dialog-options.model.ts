@@ -1,6 +1,7 @@
 export enum Dialog {
     ConfirmationDialogComponent = 'ConfirmationDialogComponent',
-    CardDialogComponent = 'CardDialogComponent'
+    CardDialogComponent = 'CardDialogComponent',
+    ColumnDialogComponent = 'ColumnDialogComponent'
 }
 
 export interface DialogOptions {

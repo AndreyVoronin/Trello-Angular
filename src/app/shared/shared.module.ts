@@ -7,16 +7,19 @@ import { MaterialModule } from './material.module';
 import { HeaderComponent } from './header/header.component';
 import { ConfirmationDialogComponent } from './dialogs/confirmation-dialog/confirmation-dialog.component';
 import { CardDialogComponent } from './dialogs/card-dialog/card-dialog.component';
+import { ColumnDialogComponent } from './dialogs/column-dialog/column-dialog.component';
 
 @NgModule({
   declarations: [
     HeaderComponent,
     ConfirmationDialogComponent,
-    CardDialogComponent
+    CardDialogComponent,
+    ColumnDialogComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    FormsModule
   ],
   exports: [
     FormsModule,
@@ -24,7 +27,8 @@ import { CardDialogComponent } from './dialogs/card-dialog/card-dialog.component
     MaterialModule,
     HeaderComponent,
     ConfirmationDialogComponent,
-    CardDialogComponent
+    CardDialogComponent,
+    ColumnDialogComponent
   ]
 })
 export class SharedModule { }
