@@ -11,7 +11,7 @@ import { Board } from '../../../core/models';
 export class BoardService extends ApiService {
   private _boards$ = new BehaviorSubject<Board[]>([]);
 
-  public readonly boards$ = this._boards$.asObservable();
+  public readonly boards$ = this._boards$.asObservable();  
 
   constructor(http: HttpClient) {
     super(http);
@@ -24,11 +24,7 @@ export class BoardService extends ApiService {
   async sendBoardsRequest(): Promise<void> {
     const { boards } = await this.get<{ boards: Board[] }>('boards');
     this._boards$.next(boards);
-  }
-
-  async sendBoardRequest(boardId): Promise<void> {
-    return await this.get(`boards/${boardId}`);
-  }
+  }  
 
   async addBoard(title: string): Promise<void> {
     this._boards$.next([...this.boards, { title } as Board]);

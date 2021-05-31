@@ -81,4 +81,13 @@ export class ApiService {
       )
       .toPromise();
   }
+
+  put<T>(path: string, body: any): Promise<T> {
+    return this.http.put(`${APIUrl}/${path}`, body, this.options)
+      .pipe(
+        catchError(this.handleError),
+        map((response: any) => response.data as T)
+      )
+      .toPromise();
+  }
 }

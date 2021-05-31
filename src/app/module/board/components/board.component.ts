@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { BoardService, DialogService } from '@core/services';
+import { DialogService } from '@core/services';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnService } from '../service/column.service';
+import { Board, Dialog } from '@core/models';
+import { Observable } from 'rxjs';
+import { take, tap } from 'rxjs/operators';
+import { Column } from '@core/models/column.model';
 
 @Component({
   selector: 'app-board',
@@ -10,27 +14,28 @@ import { ColumnService } from '../service/column.service';
   styleUrls: ['./board.component.scss'],
 })
 export class BoardComponent implements OnInit {
+  board$: Observable<Board>;
   id: number;
-  board: any;
+  board: Board;
   titleValue = '';
-  selectedColumn;
 
   constructor(
     private activateRoute: ActivatedRoute,
-    private boardService: BoardService,
     private columnService: ColumnService,
     private dialogService: DialogService,
     private router: Router
   ) {
-    this.id = activateRoute.snapshot.params['boardId'];
+    this.id = this.activateRoute.snapshot.params['boardId'];      
+    this.getBoard(this.id);
   }
 
-  ngOnInit() {
-    this.board = this.getBoardById(this.id);
+  ngOnInit(): void {  
+    this.board$ = this.columnService.board$;
+    this.board$.subscribe(board => this.board = board)
   }
 
-  async getBoardById(boardId): Promise<void> {
-    this.board = await this.boardService.sendBoardRequest(boardId);
+  private getBoard(boardId): void {
+    this.columnService.sendBoardRequest(boardId);
   }
 
   drop(event: CdkDragDrop<string[]>) {
@@ -39,23 +44,31 @@ export class BoardComponent implements OnInit {
 
   async deleteColumn(columnId: string): Promise<void> {
     await this.columnService.deleteColumn(columnId);
-    this.getBoardById(this.id);
+    this.getBoard(this.id);
   }
 
   async addColumn(title: string): Promise<void> {
     await this.columnService.addColumn(title, this.id);
     this.titleValue = '';
-    this.getBoardById(this.id);
+    this.getBoard(this.id);
   }
 
-  async openTasksDialog(column): Promise<void> {
+  openTasksDialog(column: Column): void {
     this.dialogService.openDialog({
-      data: column,
+      data: {...column, type: Dialog.CardDialogComponent}      
     });
   }
 
-  boardEdit(column) {
-    this.selectedColumn = {...column};
-    this.selectedColumn.description = this.selectedColumn.description || '';
+  openColumnDialog(column: Column) {
+    column.description = column.description || ''; 
+    const dialogRef = this.dialogService.openDialog({
+      data: {...column, type: Dialog.ColumnDialogComponent}      
+    })
+
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+      column.title = result.title;
+      column.description = result.description;
+      this.columnService.updateColumnTitle(column.title, column._id )
+    });
   }
 }

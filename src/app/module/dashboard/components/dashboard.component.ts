@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import { Board } from '@core/models';
 import { BoardService, DialogService, NotificationsService } from '@core/services';
 import { trackById } from '@core/utils';
 import { Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +16,6 @@ export class DashboardComponent implements OnInit {
   boards$: Observable<Board[]>;
   trackById = trackById;
   errorToShow: string;
-  public board: any;
 
   constructor(
     private boardService: BoardService,
@@ -41,22 +41,15 @@ export class DashboardComponent implements OnInit {
     }
   }
 
-  // openDialog(boardId: string): void {
-  //   this.dialogService.openDialog({
-  //     onConfirm: () => this.handleBoardDelete(boardId)
-  //   });
-  // }
-
-  // async openBoardDialog(boardId: string): Promise<void> {
-  //   await this.getBoardById(boardId);
-  //   this.dialogService.openDialog({
-  //     data: this.board
-  //   });
-  // }
-
   ngOnInit(): void {    
     this.getBoards();
     this.boards$ = this.boardService.boards$;
+    this.boards$.pipe(take(2)).subscribe((value =>{
+      console.log(value)
+    }),
+    (error) => {
+      console.log(error.message)
+    })
   }
 
   private getBoards(): void {

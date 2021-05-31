@@ -1,26 +1,28 @@
-<h2>{{board.title}}</h2>
-<div class="wrapper">
-  <div class="board-wrapper">
-    <input [(ngModel)]="titleValue" />
-    <button mat-stroked-button color="primary" (click)="addColumn(titleValue)" [disabled]="titleValue === ''">
-      Add card
-    </button>
-    <ul cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
-      <li class="example-box" *ngFor="let column of board.columns" cdkDrag>
-        <h3>Title: {{column.title}}</h3><br>
-        <p *ngIf="column.description">Description: {{column.description}}</p>
-        <div>
-          <button mat-stroked-button color="primary" (click)="boardEdit(column)">
-            Edit
-          </button>
-          <button mat-stroked-button color="primary" (click)="openTasksDialog(column)">
-            Tasks list
-          </button>
-          <button mat-stroked-button color="primary" (click)="deleteColumn(column._id)">
-            Delete card
-          </button>
-        </div>
-      </li>
-    </ul>
+<div *ngIf="board">
+  <h2>{{board.title}}</h2>
+  <div class="wrapper">
+    <div class="board-wrapper">
+      <input [(ngModel)]="titleValue" />
+      <button mat-stroked-button color="primary" (click)="addColumn(titleValue)" [disabled]="titleValue === ''">
+        Add card
+      </button>
+      <ul cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+        <li class="example-box" *ngFor="let column of board.columns" cdkDrag>
+          <h3>Title: {{column.title}}</h3><br>
+          <p *ngIf="column.description">Description: {{column.description}}</p>
+          <div>
+            <button mat-stroked-button color="primary" (click)="openColumnDialog(column)">
+              Edit
+            </button>
+            <button mat-stroked-button color="primary" (click)="openTasksDialog(column)">
+              Tasks list
+            </button>
+            <button mat-stroked-button color="primary" (click)="deleteColumn(column._id)">
+              Delete card
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </div>
