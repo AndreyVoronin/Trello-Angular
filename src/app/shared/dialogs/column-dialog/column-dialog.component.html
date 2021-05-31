@@ -1,8 +1,15 @@
 <mat-card>
-  <mat-card-title>{{title}}</mat-card-title>
-  <input mat-input name="title" [(ngModel)]="title" [placeholder]="title"/>
+  <mat-card-title>{{column.title}}</mat-card-title>
+  <form [formGroup]="columnItems">
+    <label for="title">Title:</label>
+    <input mat-input id="title" formControlName="title" [placeholder]="column.title"/>
+    <mat-error *ngIf="isFieldEmpty('title')">This Field Required</mat-error>
+    <br>
+    <label for="description">Description:</label>
+    <input mat-input id="description" formControlName="description" [placeholder]="column.description || 'empty'"/>
+  </form>  
   <mat-card-actions>
     <button mat-raised-button color="primary" (click)="onNoClick()">{{data.cancelText}}</button>
-    <button mat-raised-button color="primary" [mat-dialog-close]="title">{{data.confirmText}}</button>
+    <button mat-raised-button color="primary" [mat-dialog-close]="columnItems.value">{{data.confirmText}}</button>
   </mat-card-actions>
 </mat-card>

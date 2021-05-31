@@ -5,7 +5,8 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ColumnService } from '../service/column.service';
 import { Board, Dialog } from '@core/models';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
+import { Column } from '@core/models/column.model';
 
 @Component({
   selector: 'app-board',
@@ -15,7 +16,7 @@ import { tap } from 'rxjs/operators';
 export class BoardComponent implements OnInit {
   board$: Observable<Board>;
   id: number;
-  board: any;
+  board: Board;
   titleValue = '';
 
   constructor(
@@ -24,11 +25,11 @@ export class BoardComponent implements OnInit {
     private dialogService: DialogService,
     private router: Router
   ) {
-    this.id = this.activateRoute.snapshot.params['boardId'];
+    this.id = this.activateRoute.snapshot.params['boardId'];      
+    this.getBoard(this.id);
   }
 
-  ngOnInit(): void {    
-    this.getBoard(this.id);
+  ngOnInit(): void {  
     this.board$ = this.columnService.board$;
     this.board$.subscribe(board => this.board = board)
   }
@@ -52,19 +53,21 @@ export class BoardComponent implements OnInit {
     this.getBoard(this.id);
   }
 
-  openTasksDialog(column): void {
+  openTasksDialog(column: Column): void {
     this.dialogService.openDialog({
       data: {...column, type: Dialog.CardDialogComponent}      
     });
   }
 
-  openColumnDialog(column) {
+  openColumnDialog(column: Column) {
+    column.description = column.description || ''; 
     const dialogRef = this.dialogService.openDialog({
       data: {...column, type: Dialog.ColumnDialogComponent}      
     })
 
-    dialogRef.afterClosed().subscribe(result => {
-      column.title = result;
+    dialogRef.afterClosed().pipe(take(1)).subscribe(result => {
+      column.title = result.title;
+      column.description = result.description;
       this.columnService.updateColumnTitle(column.title, column._id )
     });
   }
